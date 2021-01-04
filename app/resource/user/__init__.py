@@ -9,4 +9,4 @@ user_bp = Blueprint('user', __name__)
 user_api = Api(user_bp)
 user_api.representation('application/json')(output_json)
 # 给类视图增加信息
-user_api.add_resource(SMSCodeResource, '/sms/codes')
+user_api.add_resource(SMSCodeResource, '/sms/codes/<MOBILE:mobile>')

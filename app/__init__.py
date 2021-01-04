@@ -14,12 +14,16 @@ redis_client = None
 
 # 注册扩展组件
 def register_extensions(app: Flask):
-    # 数据库对象关联app,延后关联
+    # 数据库对象关联app
     db.init_app(app)
 
     # 创建redis数据库对象,decode_response=True
     global redis_client
     redis_client = StrictRedis(host=app.config['REDIS_HOST'], port=app.config['REDIS_PORT'], decode_responses=True)
+
+    # 注册路由转换器
+    from common.utils.converters import register_converters
+    register_converters(app)
 
 
 # 注册蓝图组件
@@ -47,4 +51,5 @@ def create_app(config_name):
     register_extensions(app)
     # 注册蓝图组件
     register_bp(app)
+
     return app
