@@ -2,9 +2,10 @@ from flask import Blueprint
 from flask_restful import Api
 from common.utils.output import output_json
 from .passport import SMSCodeResource
+from common.utils.constants import BASE_URL_PREFIX
 
 # 创建蓝图对象
-user_bp = Blueprint('user', __name__)
+user_bp = Blueprint('user', __name__, url_prefix=BASE_URL_PREFIX)
 # 将蓝图对象包装成具备restful风格的的组件对象
 user_api = Api(user_bp)
 user_api.representation('application/json')(output_json)
