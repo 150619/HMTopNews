@@ -1,7 +1,7 @@
 from flask import Flask
-# 创建mysql数据库对象
 from flask_sqlalchemy import SQLAlchemy
 
+# 创建mysql数据库对象
 db = SQLAlchemy()
 
 # 创建redis数据库对象
@@ -21,10 +21,15 @@ def register_extensions(app: Flask):
     # 注册路由转换器
     from common.utils.converters import register_converters
     register_converters(app)
+
     # 迁移
     from flask_migrate import Migrate
     Migrate(app, db)
     from common.models import user
+
+    # 添加请求钩子
+    from common.utils.middlewares import get_user_info
+    app.before_request(get_user_info)
 
 
 # 注册蓝图组件
@@ -37,10 +42,12 @@ def register_bp(app: Flask):
 def create_flask_app(config_name):
     # 创建flask_app对象
     flask_app = Flask(__name__)
+
     # 读取配置类中的配置信息
     from app.settings.config import config_dict
     config_class = config_dict[config_name]
     flask_app.config.from_object(config_class)
+
     # 读取环境变量中的配置信息
     from common.utils.constants import EXTRA_ENV_CONFIG
     flask_app.config.from_envvar(EXTRA_ENV_CONFIG, silent=True)
@@ -51,8 +58,10 @@ def create_flask_app(config_name):
 def create_app(config_name):
     # 创建app对象
     app = create_flask_app(config_name)
+
     # 注册扩展组件
     register_extensions(app)
+
     # 注册蓝图组件
     register_bp(app)
 
