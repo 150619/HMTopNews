@@ -3,8 +3,12 @@ class BaseConfig:
     # 加密密钥
     SECRET_KEY = '150619'
 
+    # JWT
+    JWT_SECRET = 'TPmi4aLWRbyVq8zu9v82dWYW17/z+UvRnYTt4P6fAXA'
+    JWT_EXPIRE_DAYS = 14
+
     # mysql数据库的配置信息
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@192.168.242.134:3306/toutiao'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:mysql@192.168.242.134:3306/Hmtop'
     # 数据库修改跟踪
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # 底层输出sql语句

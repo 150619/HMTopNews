@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 from common.utils.output import output_json
-from .passport import SMSCodeResource
+from app.resource.user import passport
 from common.utils.constants import BASE_URL_PREFIX
 
 # 创建蓝图对象
@@ -10,4 +10,5 @@ user_bp = Blueprint('user', __name__, url_prefix=BASE_URL_PREFIX)
 user_api = Api(user_bp)
 user_api.representation('application/json')(output_json)
 # 给类视图增加信息
-user_api.add_resource(SMSCodeResource, '/sms/codes/<MOBILE:mobile>')
+user_api.add_resource(passport.SMSCodeResource, '/sms/codes/<MOBILE:mobile>')
+user_api.add_resource(passport.LoginResource, '/authorizations')

@@ -1,11 +1,7 @@
 from flask import Flask
-from app.settings.config import config_dict
+# 创建mysql数据库对象
 from flask_sqlalchemy import SQLAlchemy
-from common.utils.constants import EXTRA_ENV_CONFIG
-from redis import StrictRedis
-from app.resource.user import user_bp
 
-# 创建数据库对象
 db = SQLAlchemy()
 
 # 创建redis数据库对象
@@ -14,20 +10,26 @@ redis_client = None
 
 # 注册扩展组件
 def register_extensions(app: Flask):
-    # 数据库对象关联app
+    # 关联flask应用
     db.init_app(app)
 
     # 创建redis数据库对象,decode_response=True
     global redis_client
+    from redis import StrictRedis
     redis_client = StrictRedis(host=app.config['REDIS_HOST'], port=app.config['REDIS_PORT'], decode_responses=True)
 
     # 注册路由转换器
     from common.utils.converters import register_converters
     register_converters(app)
+    # 迁移
+    from flask_migrate import Migrate
+    Migrate(app, db)
+    from common.models import user
 
 
 # 注册蓝图组件
 def register_bp(app: Flask):
+    from app.resource.user import user_bp
     app.register_blueprint(user_bp)
 
 
@@ -36,9 +38,11 @@ def create_flask_app(config_name):
     # 创建flask_app对象
     flask_app = Flask(__name__)
     # 读取配置类中的配置信息
+    from app.settings.config import config_dict
     config_class = config_dict[config_name]
     flask_app.config.from_object(config_class)
     # 读取环境变量中的配置信息
+    from common.utils.constants import EXTRA_ENV_CONFIG
     flask_app.config.from_envvar(EXTRA_ENV_CONFIG, silent=True)
     return flask_app
 
