@@ -27,8 +27,8 @@ class UserChannelResource(Resource):
         for user_channel in user_channels:
             # 转化为字典
             channel_dict = user_channel.to_dict()
-            # 添加到列表拼接返回数据样式
+            # 添加到列表形成restful风格
             channel_list.append(channel_dict)
-            # 添加推荐频道语法(指定位置,数据)
-            channel_list.insert(0, {'id': 0, 'name': '推荐'})
+        # 添加推荐频道语法(指定位置,数据)
+        channel_list.insert(0, {'id': 0, 'name': '推荐'})
         return {'channel': channel_list}

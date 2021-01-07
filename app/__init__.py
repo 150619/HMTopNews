@@ -36,6 +36,8 @@ def register_extensions(app: Flask):
 def register_bp(app: Flask):
     from app.resource.user import user_bp
     app.register_blueprint(user_bp)
+    from app.resource.channel import channel_bp
+    app.register_blueprint(channel_bp)
 
 
 # 内部调用创建app工厂的方法
