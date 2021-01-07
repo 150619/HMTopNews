@@ -4,7 +4,7 @@ from common.utils.jwt_util import verify_jwt
 
 def get_user_info():
     # 获取请求头中的token
-    token = request.headers.get('Authorizations')
+    token = request.headers.get('Authorization')
     # 如果登录
     if token:
         data = verify_jwt(token)

@@ -10,4 +10,4 @@ def login_required(f):
         else:
             return {'message': 'Invalid Token', 'data': None}
 
-    return wrapper()
+    return wrapper
