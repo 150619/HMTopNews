@@ -8,7 +8,7 @@ class BaseConfig:
     JWT_EXPIRE_DAYS = 14
 
     # mysql数据库的配置信息
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:mysql@192.168.242.134:3306/Hmtop'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:mysql@192.168.242.134:3306/hmtop'
     # 数据库修改跟踪
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # 底层输出sql语句

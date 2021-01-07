@@ -25,7 +25,7 @@ def register_extensions(app: Flask):
     # 迁移
     from flask_migrate import Migrate
     Migrate(app, db)
-    from common.models import user
+    from common.models import user, article
 
     # 添加请求钩子
     from common.utils.middlewares import get_user_info
