@@ -11,7 +11,7 @@ class ArticleInfo(Resource):
 
     def get(self, article_id):
         article_info = db.session. \
-            query(User.name, User.profile_photo, Article.id, Article.title, Article.ctime, Article.user_id,
+            query(Article.id, Article.title, Article.ctime, Article.user_id, User.name, User.profile_photo,
                   ArticleContent.content). \
             join(User, Article.user_id == User.id). \
             join(ArticleContent, Article.id == ArticleContent.article_id). \
