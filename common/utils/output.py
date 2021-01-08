@@ -6,11 +6,6 @@ from json import dumps
 
 def output_json(data, code, headers=None):
     """Makes a Flask response with a JSON encoded body"""
-    if 'message' not in data:
-        data = {
-            'message': 'OK',
-            'data': data
-        }
 
     settings = current_app.config.get('RESTFUL_JSON', {})
 
@@ -20,6 +15,12 @@ def output_json(data, code, headers=None):
     if current_app.debug:
         settings.setdefault('indent', 4)
         settings.setdefault('sort_keys', not PY3)
+
+    if 'message' not in data:
+        data = {
+            'message': 'OK',
+            'data': data
+        }
 
     # always end the json dumps with a new line
     # see https://github.com/mitsuhiko/flask/pull/1262

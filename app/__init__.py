@@ -38,6 +38,8 @@ def register_bp(app: Flask):
     app.register_blueprint(user_bp)
     from app.resource.channel import channel_bp
     app.register_blueprint(channel_bp)
+    from app.resource.article import article_bp
+    app.register_blueprint(article_bp)
 
 
 # 内部调用创建app工厂的方法
