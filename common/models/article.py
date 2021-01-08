@@ -55,3 +55,13 @@ class Article(db.Model):
     ctime = db.Column(db.DateTime, default=datetime.now, doc='创建时间')
     status = db.Column(db.Integer, default=0, doc='帖文状态')
     comment_count = db.Column(db.Integer, default=0, doc='评论数')
+
+
+class ArticleContent(db.Model):
+    """
+    文章内容表
+    """
+    __tablename__ = 'news_article_content'
+
+    article_id = db.Column(db.Integer, primary_key=True, doc='文章ID')
+    content = db.Column(db.Text, doc='帖文内容')
