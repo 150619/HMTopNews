@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 from common.utils.output import output_json
-from app.resource.user import passport, user_info, channel_update, channel
+from app.resource.user import passport, user_info, channel_update, channel, user_followings
 from common.utils.constants import BASE_URL_PREFIX
 
 # 创建蓝图对象
@@ -15,3 +15,4 @@ user_api.add_resource(passport.LoginResource, '/authorizations')
 user_api.add_resource(user_info.UserInfoResource, '/user')
 user_api.add_resource(channel_update.ChannelUpdate, '/user/channels')
 user_api.add_resource(channel.UserChannelResource, '/user/channels')
+user_api.add_resource(user_followings.UserFollowings, '/user/followings')
