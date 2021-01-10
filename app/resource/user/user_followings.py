@@ -9,7 +9,7 @@ from common.models.user import User, Relation
 from common.utils.decorators import login_required
 
 
-class UserFollowings(Resource):
+class UserFollow(Resource):
     method_decorators = {'post': [login_required]}
 
     def post(self):
